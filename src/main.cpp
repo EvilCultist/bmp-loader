@@ -8,7 +8,8 @@ int main() {
   std::uint8_t *dibHeader = nullptr;
   char databuff[] = {'\0', '\0'};
   std::uint8_t *pixels = nullptr;
-  char fileSize[4]; // = {0x00, 0x00, 0x00, 0x00};
+  char fileSize[12]; // = {0x00, 0x00, 0x00, 0x00};
+  char header[40];   // = {0x00, 0x00, 0x00, 0x00};
 
   if (!file) {
     std::cerr << "file not found" << std::endl;
@@ -20,6 +21,11 @@ int main() {
   }
   file.read(fileSize, sizeof(fileSize));
   for (auto val : fileSize) {
+    std::cout << (uint16_t)val << " ";
+  }
+  std::cout << std::endl;
+  file.read(header, sizeof(header));
+  for (auto val : header) {
     std::cout << (uint16_t)val << " ";
   }
   std::cout << std::endl;
